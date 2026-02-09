@@ -20,17 +20,26 @@ if "user_role" not in st.session_state:
     st.session_state.user_role = None
 
 # ==================================================
-# LOAD USERS
+# LOAD USERS (FROM STREAMLIT SECRETS)
 # ==================================================
 @st.cache_data
 def load_users():
-    df = pd.read_excel("users.xlsx")
+    users = st.secrets["users"]
+
+    df = pd.DataFrame({
+        "email": users["email"],
+        "password": users["password"],
+        "role": users["role"]
+    })
+
     df["email"] = df["email"].astype(str).str.strip()
     df["password"] = df["password"].astype(str).str.strip()
     df["role"] = df["role"].astype(str).str.strip().str.lower()
+
     return df
 
 users_df = load_users()
+
 
 # ==================================================
 # GLOBAL THEME (SAME AS HOME)
