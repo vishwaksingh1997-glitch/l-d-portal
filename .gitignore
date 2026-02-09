@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+*.pyc
+users.xlsx
+training_data.xlsx
+.streamlit/
